@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Portfolio</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>{{ data[1] }}</h1>
+
+<p>
+<b>Designation:</b>
+{{ data[2] }}
+</p>
+
+<p>
+<b>Location:</b>
+{{ data[3] }}
+</p>
+
+<p>
+<b>Contact:</b>
+{{ data[4] }}
+</p>
+
+<p>
+<b>Summary:</b>
+{{ data[5] }}
+</p>
+
+<p>
+<b>Education:</b>
+{{ data[6] }}
+</p>
+
+<p>
+<b>Skills:</b>
+{{ data[7] }}
+</p>
+
+<p>
+<b>Achievements:</b>
+{{ data[8] }}
+</p>
+
+<p>
+<b>Projects:</b>
+{{ data[9] }}
+</p>
+
+<p>
+<b>Best Subject:</b>
+{{ data[10] }}
+</p>
+
+<p>
+<b>Activities:</b>
+{{ data[11] }}
+</p>
+
+<a href="/update/{{ data[0] }}">
+<button>Update</button>
+</a>
+
+<a href="/live/{{ data[0] }}">
+<button>Go Live</button>
+</a>
+
+<a href="/pdf/{{ data[0] }}">
+<button>Export PDF</button>
+</a>
+
+<button onclick=
+"navigator.clipboard.writeText(window.location.href)">
+Share Portfolio
+</button>
+
+</div>
+
+</body>
+</html>
