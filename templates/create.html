@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Portfolio</title>
+
+<title>Create Portfolio</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
+
+<div class="container">
 
 <h1>Create Portfolio</h1>
 
 <form method="POST">
 
-Name:
-<input type="text" name="name"><br><br>
+<input type="text" name="name" placeholder="Name">
 
-Current Designation:
-<input type="text" name="designation"><br><br>
+<input type="text" name="designation" placeholder="Current Designation">
 
-Location:
-<input type="text" name="location"><br><br>
+<input type="text" name="location" placeholder="Location">
 
-Contact:
-<input type="text" name="contact"><br><br>
+<input type="text" name="contact" placeholder="Contact">
 
-Summary:
-<textarea name="summary"></textarea><br><br>
+<textarea name="summary" placeholder="Summary of Profile"></textarea>
 
-Educational Details:
-<textarea name="education"></textarea><br><br>
+<textarea name="education" placeholder="Educational Details"></textarea>
 
-Skills:
-<textarea name="skills"></textarea><br><br>
+<textarea name="skills" placeholder="Skills"></textarea>
 
-Achievements:
-<textarea name="achievement"></textarea><br><br>
+<textarea name="achievement" placeholder="Achievements"></textarea>
 
-Projects:
-<textarea name="project"></textarea><br><br>
+<textarea name="project" placeholder="Projects"></textarea>
 
-Best Subjects:
-<textarea name="subject"></textarea><br><br>
+<textarea name="subject" placeholder="Best Subjects"></textarea>
 
-Other Activities:
-<textarea name="activities"></textarea><br><br>
+<textarea name="activities" placeholder="Other Activities"></textarea>
 
-<button type="submit">Save</button>
+<button type="submit">Save Portfolio</button>
 
 </form>
+
+</div>
 
 </body>
 </html>
