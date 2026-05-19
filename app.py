@@ -130,9 +130,14 @@ def create():
         ''', data)
 
         conn.commit()
+
+        # GET NEW PORTFOLIO ID
+        portfolio_id = cur.lastrowid
+
         conn.close()
 
-        return redirect('/dashboard')
+        # OPEN USER'S OWN PORTFOLIO
+        return redirect('/portfolio/' + str(portfolio_id))
 
     return render_template('create.html')
 
