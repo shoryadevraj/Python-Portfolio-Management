@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Live Portfolio</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.live-box{
+
+width: 70%;
+margin: auto;
+margin-top: 40px;
+background: white;
+padding: 40px;
+border-radius: 15px;
+
+}
+
+.section{
+
+margin-top: 25px;
+
+}
+
+.section h2{
+
+color: #4f46e5;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="live-box">
+
+<h1 style="text-align:center;">
+{{ data[1] }}
+</h1>
+
+<p style="text-align:center;">
+{{ data[2] }} | {{ data[3] }}
+</p>
+
+<div class="section">
+
+<h2>Contact</h2>
+
+<p>{{ data[4] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Profile Summary</h2>
+
+<p>{{ data[5] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Education</h2>
+
+<p>{{ data[6] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Skills</h2>
+
+<p>{{ data[7] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Achievements</h2>
+
+<p>{{ data[8] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Projects</h2>
+
+<p>{{ data[9] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Best Subject</h2>
+
+<p>{{ data[10] }}</p>
+
+</div>
+
+<div class="section">
+
+<h2>Other Activities</h2>
+
+<p>{{ data[11] }}</p>
+
+</div>
+
+</div>
+
+</body>
+</html>
