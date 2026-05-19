@@ -4,27 +4,58 @@
 
 <title>Dashboard</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 <body>
 
-<div class="dashboard">
+<div class="container">
 
 <h1>Admin Dashboard</h1>
 
-<a href="/create">
-<button>Create Portfolio</button>
+<div class="card">
+
+<h2>
+Total Portfolios: {{ total }}
+</h2>
+
+</div>
+
+{% for p in portfolios %}
+
+<div class="card">
+
+<h2>{{ p[1] }}</h2>
+
+<p>
+{{ p[2] }}
+</p>
+
+<a href="/portfolio/{{ p[0] }}">
+<button>View</button>
 </a>
 
-<a href="/view">
-<button>View Portfolio</button>
+<a href="/update/{{ p[0] }}">
+<button>Update</button>
 </a>
 
-<button>Share / Export</button>
-
+<a href="/live/{{ p[0] }}">
 <button>Go Live</button>
+</a>
+
+<a href="/pdf/{{ p[0] }}">
+<button>Export PDF</button>
+</a>
+
+<a href="/delete/{{ p[0] }}">
+<button>Delete</button>
+</a>
+
+</div>
+
+{% endfor %}
 
 </div>
 
