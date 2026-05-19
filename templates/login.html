@@ -2,27 +2,42 @@
 <html>
 <head>
 
-<title>Login Page</title>
+<title>Admin Login</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="container">
 
 <h1>Admin Login</h1>
 
-<form action="/dashboard">
+<form method="POST">
 
-<input type="text" placeholder="Enter Username">
+<input
+type="text"
+name="username"
+placeholder="Enter Username"
+required>
 
-<input type="password" placeholder="Enter Password">
+<input
+type="password"
+name="password"
+placeholder="Enter Password"
+required>
 
-<button type="submit">Login</button>
+<button type="submit">
+Login
+</button>
 
 </form>
+
+<p style="color:red;">
+{{ error }}
+</p>
 
 </div>
 
