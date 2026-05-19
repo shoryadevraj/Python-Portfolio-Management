@@ -4,7 +4,8 @@
 
 <title>Update Portfolio</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
@@ -16,15 +17,57 @@
 
 <form method="POST">
 
-<input type="text" name="name" value="{{ data[1] }}">
+<input
+type="text"
+name="name"
+value="{{ data[1] }}">
 
-<input type="text" name="designation" value="{{ data[2] }}">
+<input
+type="text"
+name="designation"
+value="{{ data[2] }}">
 
-<input type="text" name="location" value="{{ data[3] }}">
+<input
+type="text"
+name="location"
+value="{{ data[3] }}">
 
-<input type="text" name="contact" value="{{ data[4] }}">
+<input
+type="text"
+name="contact"
+value="{{ data[4] }}">
 
-<button type="submit">Update</button>
+<textarea name="summary">
+{{ data[5] }}
+</textarea>
+
+<textarea name="education">
+{{ data[6] }}
+</textarea>
+
+<textarea name="skills">
+{{ data[7] }}
+</textarea>
+
+<textarea name="achievement">
+{{ data[8] }}
+</textarea>
+
+<textarea name="project">
+{{ data[9] }}
+</textarea>
+
+<textarea name="subject">
+{{ data[10] }}
+</textarea>
+
+<textarea name="activities">
+{{ data[11] }}
+</textarea>
+
+<button type="submit">
+Update Portfolio
+</button>
 
 </form>
 
