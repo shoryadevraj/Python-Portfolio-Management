@@ -1,16 +1,18 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 import sqlite3
+from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
 
-# Database Creation
+# DATABASE CREATION
 def init_db():
 
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
 
     cur.execute('''
-    CREATE TABLE IF NOT EXISTS portfolio (
+
+    CREATE TABLE IF NOT EXISTS portfolio(
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -27,6 +29,7 @@ def init_db():
         activities TEXT
 
     )
+
     ''')
 
     conn.commit()
@@ -34,41 +37,80 @@ def init_db():
 
 init_db()
 
-# Login Page
+# HOME PAGE
 @app.route('/')
-def login():
-    return render_template('login.html')
+def home():
+    return render_template('home.html')
 
-# Dashboard Page
+# ADMIN LOGIN
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    error = ""
+
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+
+        if username == 'shorya' and password == '123456':
+            return redirect('/dashboard')
+
+        else:
+            error = "Invalid Username or Password"
+
+    return render_template('login.html', error=error)
+
+# DASHBOARD
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
 
-# Create Portfolio
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+
+    cur.execute('SELECT * FROM portfolio')
+    portfolios = cur.fetchall()
+
+    cur.execute('SELECT COUNT(*) FROM portfolio')
+    total = cur.fetchone()[0]
+
+    conn.close()
+
+    return render_template(
+        'dashboard.html',
+        portfolios=portfolios,
+        total=total
+    )
+
+# CREATE PORTFOLIO
 @app.route('/create', methods=['GET', 'POST'])
 def create():
 
     if request.method == 'POST':
 
-        name = request.form['name']
-        designation = request.form['designation']
-        location = request.form['location']
-        contact = request.form['contact']
-        summary = request.form['summary']
-        education = request.form['education']
-        skills = request.form['skills']
-        achievement = request.form['achievement']
-        project = request.form['project']
-        subject = request.form['subject']
-        activities = request.form['activities']
+        data = (
+
+            request.form['name'],
+            request.form['designation'],
+            request.form['location'],
+            request.form['contact'],
+            request.form['summary'],
+            request.form['education'],
+            request.form['skills'],
+            request.form['achievement'],
+            request.form['project'],
+            request.form['subject'],
+            request.form['activities']
+
+        )
 
         conn = sqlite3.connect('database.db')
         cur = conn.cursor()
 
         cur.execute('''
 
-        INSERT INTO portfolio
-        (
+        INSERT INTO portfolio(
+
             name,
             designation,
             location,
@@ -80,50 +122,42 @@ def create():
             project,
             subject,
             activities
+
         )
 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
-        ''',
-
-        (
-            name,
-            designation,
-            location,
-            contact,
-            summary,
-            education,
-            skills,
-            achievement,
-            project,
-            subject,
-            activities
-        )
-        )
+        ''', data)
 
         conn.commit()
         conn.close()
 
-        return redirect('/view')
+        return redirect('/dashboard')
 
     return render_template('create.html')
 
-# View Portfolio
-@app.route('/view')
-def view():
+# VIEW PORTFOLIO
+@app.route('/portfolio/<int:id>')
+def portfolio(id):
 
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM portfolio")
+    cur.execute(
+        'SELECT * FROM portfolio WHERE id=?',
+        (id,)
+    )
 
-    data = cur.fetchall()
+    data = cur.fetchone()
 
     conn.close()
 
-    return render_template('view.html', data=data)
+    return render_template(
+        'portfolio.html',
+        data=data
+    )
 
-# Update Portfolio
+# UPDATE PORTFOLIO
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
 
@@ -132,44 +166,138 @@ def update(id):
 
     if request.method == 'POST':
 
-        name = request.form['name']
-        designation = request.form['designation']
-        location = request.form['location']
-        contact = request.form['contact']
-
         cur.execute('''
 
         UPDATE portfolio
 
         SET
+
         name=?,
         designation=?,
         location=?,
-        contact=?
+        contact=?,
+        summary=?,
+        education=?,
+        skills=?,
+        achievement=?,
+        project=?,
+        subject=?,
+        activities=?
 
         WHERE id=?
 
         ''',
 
         (
-            name,
-            designation,
-            location,
-            contact,
+
+            request.form['name'],
+            request.form['designation'],
+            request.form['location'],
+            request.form['contact'],
+            request.form['summary'],
+            request.form['education'],
+            request.form['skills'],
+            request.form['achievement'],
+            request.form['project'],
+            request.form['subject'],
+            request.form['activities'],
             id
+
         ))
 
         conn.commit()
 
-        return redirect('/view')
+        return redirect('/portfolio/' + str(id))
 
-    cur.execute("SELECT * FROM portfolio WHERE id=?", (id,))
+    cur.execute(
+        'SELECT * FROM portfolio WHERE id=?',
+        (id,)
+    )
 
     data = cur.fetchone()
 
     conn.close()
 
-    return render_template('update.html', data=data)
+    return render_template(
+        'update.html',
+        data=data
+    )
+
+# DELETE PORTFOLIO
+@app.route('/delete/<int:id>')
+def delete(id):
+
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+
+    cur.execute(
+        'DELETE FROM portfolio WHERE id=?',
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect('/dashboard')
+
+# GO LIVE
+@app.route('/live/<int:id>')
+def live(id):
+
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+
+    cur.execute(
+        'SELECT * FROM portfolio WHERE id=?',
+        (id,)
+    )
+
+    data = cur.fetchone()
+
+    conn.close()
+
+    return render_template(
+        'live.html',
+        data=data
+    )
+
+# EXPORT PDF
+@app.route('/pdf/<int:id>')
+def pdf(id):
+
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+
+    cur.execute(
+        'SELECT * FROM portfolio WHERE id=?',
+        (id,)
+    )
+
+    data = cur.fetchone()
+
+    conn.close()
+
+    filename = f'portfolio_{id}.pdf'
+
+    pdf = canvas.Canvas(filename)
+
+    pdf.drawString(100, 800, "PORTFOLIO DETAILS")
+
+    pdf.drawString(100, 760, "Name: " + data[1])
+    pdf.drawString(100, 740, "Designation: " + data[2])
+    pdf.drawString(100, 720, "Location: " + data[3])
+    pdf.drawString(100, 700, "Contact: " + data[4])
+    pdf.drawString(100, 680, "Summary: " + data[5])
+    pdf.drawString(100, 660, "Education: " + data[6])
+    pdf.drawString(100, 640, "Skills: " + data[7])
+    pdf.drawString(100, 620, "Achievements: " + data[8])
+    pdf.drawString(100, 600, "Projects: " + data[9])
+    pdf.drawString(100, 580, "Best Subject: " + data[10])
+    pdf.drawString(100, 560, "Activities: " + data[11])
+
+    pdf.save()
+
+    return send_file(filename, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
