@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Portfolio Details</title>
+
+<title>View Portfolio</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
 
-<h1>Portfolio Information</h1>
+<h1 class="title">Portfolio Details</h1>
 
 {% for row in data %}
 
-<hr>
+<div class="card">
 
 <h2>{{ row[1] }}</h2>
 
@@ -33,6 +37,12 @@
 <p><b>Best Subjects:</b> {{ row[10] }}</p>
 
 <p><b>Activities:</b> {{ row[11] }}</p>
+
+<a href="/update/{{ row[0] }}">
+<button>Update</button>
+</a>
+
+</div>
 
 {% endfor %}
 
