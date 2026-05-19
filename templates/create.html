@@ -4,7 +4,8 @@
 
 <title>Create Portfolio</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
@@ -16,29 +17,68 @@
 
 <form method="POST">
 
-<input type="text" name="name" placeholder="Name">
+<input
+type="text"
+name="name"
+placeholder="Name"
+required>
 
-<input type="text" name="designation" placeholder="Current Designation">
+<input
+type="text"
+name="designation"
+placeholder="Current Designation"
+required>
 
-<input type="text" name="location" placeholder="Location">
+<input
+type="text"
+name="location"
+placeholder="Location"
+required>
 
-<input type="text" name="contact" placeholder="Contact">
+<input
+type="text"
+name="contact"
+placeholder="Contact Details"
+required>
 
-<textarea name="summary" placeholder="Summary of Profile"></textarea>
+<textarea
+name="summary"
+placeholder="Summary of Profile"
+required></textarea>
 
-<textarea name="education" placeholder="Educational Details"></textarea>
+<textarea
+name="education"
+placeholder="Educational Details"
+required></textarea>
 
-<textarea name="skills" placeholder="Skills"></textarea>
+<textarea
+name="skills"
+placeholder="Skills"
+required></textarea>
 
-<textarea name="achievement" placeholder="Achievements"></textarea>
+<textarea
+name="achievement"
+placeholder="Achievements"
+required></textarea>
 
-<textarea name="project" placeholder="Projects"></textarea>
+<textarea
+name="project"
+placeholder="Projects"
+required></textarea>
 
-<textarea name="subject" placeholder="Best Subjects"></textarea>
+<textarea
+name="subject"
+placeholder="Best Subject"
+required></textarea>
 
-<textarea name="activities" placeholder="Other Activities"></textarea>
+<textarea
+name="activities"
+placeholder="Other Activities"
+required></textarea>
 
-<button type="submit">Save Portfolio</button>
+<button type="submit">
+Save Portfolio
+</button>
 
 </form>
 
