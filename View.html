@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Details</title>
+</head>
+
+<body>
+
+<h1>Portfolio Information</h1>
+
+{% for row in data %}
+
+<hr>
+
+<h2>{{ row[1] }}</h2>
+
+<p><b>Designation:</b> {{ row[2] }}</p>
+
+<p><b>Location:</b> {{ row[3] }}</p>
+
+<p><b>Contact:</b> {{ row[4] }}</p>
+
+<p><b>Summary:</b> {{ row[5] }}</p>
+
+<p><b>Education:</b> {{ row[6] }}</p>
+
+<p><b>Skills:</b> {{ row[7] }}</p>
+
+<p><b>Achievements:</b> {{ row[8] }}</p>
+
+<p><b>Projects:</b> {{ row[9] }}</p>
+
+<p><b>Best Subjects:</b> {{ row[10] }}</p>
+
+<p><b>Activities:</b> {{ row[11] }}</p>
+
+{% endfor %}
+
+</body>
+</html>
