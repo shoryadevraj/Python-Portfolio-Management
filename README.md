@@ -76,5 +76,5 @@ Open terminal and run:
 
 
 ```pip install flask
-pip install reportlab```
+pip install reportlab
 
