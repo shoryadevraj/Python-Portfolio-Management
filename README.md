@@ -38,29 +38,6 @@ This project allows users to create, update, share, and export professional port
 
 ---
 
-# Project Structure
-
-Portfolio-Management-System/
-│
-├── app.py
-├── database.db
-│
-├── templates/
-│   ├── home.html
-│   ├── login.html
-│   ├── dashboard.html
-│   ├── create.html
-│   ├── portfolio.html
-│   ├── update.html
-│   └── live.html
-│
-├── static/
-│   └── style.css
-│
-└── README.md
-
----
-
 # Installation
 
 ## Step 1
